@@ -1,75 +1,26 @@
-import React, { useState } from 'react';
-// import React, { useState } from 'react';
-// //import Nav from './Nav';
-import About from './About';
-import Projects from './Projects';
-import Contact from './Contact';
-import Resume from './Resume';
-// //import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
 
 
-function Nav() {
+function Nav(props) {
 
-  const [currentPage, handlePageChange] = useState('About');
-
-  const renderPage = () => {
-        switch(currentPage) {
-          case 'About':
-            return (<About></About>)
-    
-          case 'Portfolio':
-            return (<Projects></Projects>)
-    
-          case 'Contact':
-            return (<Contact></Contact>)
-    
-          case 'Resume':
-            return (<Resume></Resume>)
-    
-          default:
-            return (<About></About>)
-        }
-      };
-    
-    
-
-  return (
-    <header>
-      {/* refer the module if you wish to add an icon later */}
-      <nav>
-        <ul className='flex-row'></ul>
-          <li className='mx-2'>
-            <a href='#about'>
-              About Me
-            </a>
-          </li>
-          <li className='mx-2'>
-            <a href='#portfolio'>
-              Portfolio
-            </a>
-          </li>
-          <li className='mx-2'>
-            <a href='#contact'>
-              Contact
-            </a>
-          </li>
-          <li className='mx-2'>
-            <a href='#resume'>
-              Resume
-            </a>
-          </li>
-      </nav>
-
-      <div>
-        <Nav currentPage={currentPage} handlePageChange={handlePageChange} />
-        <div>
-          {
-            renderPage()
-          }
-        </div>
-      </div>
+  const pages = ['About Me', 'Portfolio', 'Contact', 'Resume'];
   
-    </header>
+  return (
+    <ul className='nav nav-tabs'>
+      {pages.map(page => (
+        <li className='nav-item' key={page}>
+          <a
+            href={'#' + page.toLowerCase()}
+            onClick={() => props.handlePageChange(page)}
+            className={
+              props.currentPage === page ? 'nav-link active' : 'nav-link'
+            }
+          >
+            {page}
+          </a>
+        </li>
+      ))}
+    </ul>
   );
 }
 
